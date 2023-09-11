@@ -13,9 +13,6 @@ const UserModel = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    phone: {
-      type: DataTypes.STRING(10),
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -43,4 +40,5 @@ const UserModel = sequelize.define(
   }
 );
 
+UserModel.sync({ alter: true });
 export default UserModel;

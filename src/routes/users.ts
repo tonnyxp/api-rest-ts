@@ -2,7 +2,6 @@ import { Router } from "express";
 import {
   getItems,
   getItem,
-  createItem,
   updateItem,
   deleteItem,
 } from "../controllers/users";
@@ -14,7 +13,6 @@ const router = Router();
 router
   .get("/", getItems)
   .get("/:id", getItem)
-  .post("/", createItem)
   .put("/:id", updateItem)
   .delete("/:id", deleteItem);
 
