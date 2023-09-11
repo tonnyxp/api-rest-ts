@@ -1,5 +1,5 @@
-import { type User } from "../interfaces/users.interface";
 import UserModel from "../models/users";
+import { User } from "../interfaces/users.interface";
 
 const getUsers = async () => {
   return await UserModel.findAll();

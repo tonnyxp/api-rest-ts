@@ -1,7 +1,17 @@
-import { sequelize } from "../db/config";
-import { DataTypes } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+} from "sequelize";
+import { sequelize } from "../database/config";
+import { User } from "../interfaces/users.interface";
 
-const UserModel = sequelize.define(
+interface UserModel
+  extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>>,
+    User {}
+
+const UserModel = sequelize.define<UserModel>(
   "users",
   {
     id: {
@@ -15,8 +25,8 @@ const UserModel = sequelize.define(
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
@@ -40,5 +50,4 @@ const UserModel = sequelize.define(
   }
 );
 
-UserModel.sync({ alter: true });
 export default UserModel;

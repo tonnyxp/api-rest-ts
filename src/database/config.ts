@@ -1,14 +1,15 @@
 import "dotenv/config";
 import { Sequelize } from "sequelize";
 
-const database = process.env.DB_DATABASE as string;
-const username = process.env.DB_USERNAME as string;
-const password = process.env.DB_PASSWORD;
-const host = process.env.DB_HOST;
+const host = process.env.MYSQL_HOST;
+const database = process.env.MYSQL_DATABASE as string;
+const username = process.env.MYSQL_USERNAME as string;
+const password = process.env.MYSQL_PASSWORD;
 
 const sequelize = new Sequelize(database, username, password, {
   host,
   dialect: "mysql",
+  logging: false,
 });
 
 const connection = async () => {

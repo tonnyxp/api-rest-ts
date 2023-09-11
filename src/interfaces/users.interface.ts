@@ -1,11 +1,11 @@
-export interface User {
+import { Auth } from "./auth.interface";
+
+export interface User extends Auth {
   id?: number;
   name: string;
-  email: string;
-  password: string;
-  verified: boolean;
-  role: "admin" | "user";
-  active: boolean;
+  verified?: boolean;
+  role?: "admin" | "user";
+  active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
