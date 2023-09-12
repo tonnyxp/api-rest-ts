@@ -1,19 +1,14 @@
 import { Router } from "express";
-import {
-  getItems,
-  getItem,
-  updateItem,
-  deleteItem,
-} from "../controllers/users";
+import { getAll, getById, update, destroy } from "../controllers/users";
 
 const router = Router();
 /**
- * http://localhost:3000/api/items
+ * http://localhost:3000/api/users
  */
-router
-  .get("/", getItems)
-  .get("/:id", getItem)
-  .put("/:id", updateItem)
-  .delete("/:id", deleteItem);
+router.get("/", getAll);
+router.put("/:id", update);
+
+router.get("/:id", getById);
+router.delete("/:id", destroy);
 
 export default router;

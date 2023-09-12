@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { handleHttpError } from "../utils/error.handle";
 import { getUser, getUsers, updateUser, deleteUser } from "../services/users";
 
-const getItem = async ({ params }: Request, res: Response) => {
+const getAll = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params;
     const data = await getUser(+id);
@@ -12,7 +12,7 @@ const getItem = async ({ params }: Request, res: Response) => {
   }
 };
 
-const getItems = async (req: Request, res: Response) => {
+const getById = async (req: Request, res: Response) => {
   try {
     const data = await getUsers();
     res.status(200).send({ data });
@@ -21,7 +21,7 @@ const getItems = async (req: Request, res: Response) => {
   }
 };
 
-const updateItem = async ({ params, body }: Request, res: Response) => {
+const update = async ({ params, body }: Request, res: Response) => {
   try {
     const { id } = params;
     const data = await updateUser(+id, body);
@@ -31,7 +31,7 @@ const updateItem = async ({ params, body }: Request, res: Response) => {
   }
 };
 
-const deleteItem = async ({ params }: Request, res: Response) => {
+const destroy = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params;
     const data = await deleteUser(+id);
@@ -41,4 +41,4 @@ const deleteItem = async ({ params }: Request, res: Response) => {
   }
 };
 
-export { getItem, getItems, updateItem, deleteItem };
+export { getAll, getById, update, destroy };

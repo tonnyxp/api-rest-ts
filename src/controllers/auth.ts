@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { loginAuth, registerAuth } from "../services/auth";
 import { handleErrorResponse, handleHttpError } from "../utils/error.handle";
 
-const registerCtrl = async ({ body }: Request, res: Response) => {
+const register = async ({ body }: Request, res: Response) => {
   try {
     const data = await registerAuth(body);
     if (data === "USER_EXISTS") {
@@ -15,7 +15,7 @@ const registerCtrl = async ({ body }: Request, res: Response) => {
   }
 };
 
-const loginCtrl = async ({ body }: Request, res: Response) => {
+const login = async ({ body }: Request, res: Response) => {
   try {
     const { email, password } = body;
     const data = await loginAuth({ email, password });
@@ -31,4 +31,4 @@ const loginCtrl = async ({ body }: Request, res: Response) => {
   }
 };
 
-export { registerCtrl, loginCtrl };
+export { register, login };

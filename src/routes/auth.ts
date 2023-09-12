@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { registerCtrl, loginCtrl } from "../controllers/auth";
+import { register, login } from "../controllers/auth";
 
 const router = Router();
 /**
  * http://localhost:3000/api/auth
  */
-router.post("/register", registerCtrl);
+router.post("/register", register);
 
-router.post("/login", loginCtrl);
+router.post("/login", login);
 
 export default router;
