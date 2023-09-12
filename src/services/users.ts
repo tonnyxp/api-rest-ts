@@ -5,15 +5,15 @@ const getUsers = async () => {
   return await UserModel.findAll();
 };
 
-const getUser = async (id: number) => {
+const getUser = async (id: string) => {
   return await UserModel.findByPk(id);
 };
 
-const updateUser = async (id: number, user: User) => {
+const updateUser = async (id: string, user: User) => {
   return await UserModel.update({ ...user }, { where: { id } });
 };
 
-const deleteUser = async (id: number) => {
+const deleteUser = async (id: string) => {
   return await UserModel.destroy({ where: { id } });
 };
 

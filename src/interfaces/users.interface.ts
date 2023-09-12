@@ -1,7 +1,7 @@
 import { Auth } from "./auth.interface";
 
 export interface User extends Auth {
-  id?: number;
+  id?: string;
   name: string;
   verified?: boolean;
   role?: "admin" | "user";
