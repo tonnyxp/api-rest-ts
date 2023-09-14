@@ -12,7 +12,7 @@ const handleHttpError = (res: Response, error: string) => {
  * @param code
  */
 const handleErrorResponse = (res: Response, message: string, code = 401) => {
-  console.log("Error", message);
+  // console.log("Error", message);
   res.status(code).send({ error: message });
 };
 

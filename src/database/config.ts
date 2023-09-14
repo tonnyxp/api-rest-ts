@@ -16,7 +16,7 @@ const connection = async () => {
   try {
     await sequelize.authenticate();
     // TODO: Remove alter: true in production
-    await sequelize.sync({ alter: true });
+    // await sequelize.sync({ alter: true });
     console.log("Conectado a la base de datos");
   } catch (e) {
     console.log("Error al conectar a la base de datos", e);
