@@ -2,19 +2,23 @@ import UserModel from "../models/users";
 import { User } from "../interfaces/users.interface";
 
 const getUsers = async () => {
-  return await UserModel.findAll();
+  const response = await UserModel.findAll();
+  return response;
 };
 
 const getUser = async (id: string) => {
-  return await UserModel.findByPk(id);
+  const response = await UserModel.findByPk(id);
+  return response;
 };
 
 const updateUser = async (id: string, user: User) => {
-  return await UserModel.update({ ...user }, { where: { id } });
+  const response = await UserModel.update({ ...user }, { where: { id } });
+  return response;
 };
 
 const deleteUser = async (id: string) => {
-  return await UserModel.destroy({ where: { id } });
+  const response = await UserModel.destroy({ where: { id } });
+  return response;
 };
 
 export { getUsers, getUser, updateUser, deleteUser };

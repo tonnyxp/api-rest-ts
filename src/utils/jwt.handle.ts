@@ -6,7 +6,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
  * @param payload
  * @returns
  */
-const generateToken = async (payload: any) => {
+const generateToken = (payload: any) => {
   const token = sign(
     {
       id: payload.id,
@@ -25,12 +25,9 @@ const generateToken = async (payload: any) => {
  * @param token
  * @returns
  */
-const verifyToken = async (token: string) => {
-  try {
-    return verify(token, JWT_SECRET);
-  } catch (err) {
-    return false;
-  }
+const verifyToken = (token: string) => {
+  const decoded = verify(token, JWT_SECRET);
+  return decoded;
 };
 
 export { generateToken, verifyToken };

@@ -31,7 +31,7 @@ const update = async ({ params, body }: Request, res: Response) => {
   }
 };
 
-const destroy = async ({ params }: Request, res: Response) => {
+const remove = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params;
     const data = await deleteUser(id);
@@ -41,4 +41,4 @@ const destroy = async ({ params }: Request, res: Response) => {
   }
 };
 
-export { getAll, getById, update, destroy };
+export { getAll, getById, update, remove };
