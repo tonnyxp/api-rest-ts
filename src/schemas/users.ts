@@ -1,8 +1,10 @@
 import z from "zod";
 import { User } from "../interfaces/users.interface";
 
-const userSchema = z.object({
-  name: z.string().optional(),
+export const UserSchema = z.object({
+  name: z.string({
+    required_error: "Nombre es requerido",
+  }),
   email: z
     .string({
       required_error: "Correo electronico es requerido",
@@ -16,12 +18,10 @@ const userSchema = z.object({
   verified: z.boolean().optional(),
 });
 
-const validateUser = (user: User) => {
-  return userSchema.safeParse(user);
+export const validateUser = (user: User) => {
+  return UserSchema.safeParse(user);
 };
 
-const validatePartialUser = (user: User) => {
-  return userSchema.partial().safeParse(user);
+export const validatePartialUser = (user: User) => {
+  return UserSchema.partial().safeParse(user);
 };
-
-export { validateUser, validatePartialUser };

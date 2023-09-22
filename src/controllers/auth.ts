@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { loginAuth, registerAuth } from "../services/auth";
+import { validateLogin, validateRegister } from "../schemas/auth";
 import { handleErrorResponse, handleHttpError } from "../utils/error.handle";
-import { validateUser } from "../schemas/users";
 
 const register = async ({ body }: Request, res: Response) => {
   try {
-    const result = validateUser(body);
+    const result = validateRegister(body);
     if (!result.success) {
       return handleErrorResponse(res, JSON.parse(result.error.message), 400);
     }
@@ -23,7 +23,7 @@ const register = async ({ body }: Request, res: Response) => {
 
 const login = async ({ body }: Request, res: Response) => {
   try {
-    const result = validateUser(body);
+    const result = validateLogin(body);
     if (!result.success) {
       return handleErrorResponse(res, JSON.parse(result.error.message), 400);
     }

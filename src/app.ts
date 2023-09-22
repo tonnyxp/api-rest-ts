@@ -12,8 +12,12 @@ app.use(express.json());
 app.disable("x-powered-by");
 app.use("/api", router);
 
+app.get("/", (req, res) => {
+  res.status(200).send({ message: "Hello World" });
+});
+
 connection();
 
 app.listen(PORT, () => {
-  console.log(`Listo por el puerto ${PORT}`);
+  console.log(`http://localhost:${PORT}`);
 });
