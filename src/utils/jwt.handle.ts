@@ -26,8 +26,12 @@ const generateToken = (payload: any) => {
  * @returns
  */
 const verifyToken = (token: string) => {
-  const decoded = verify(token, JWT_SECRET);
-  return decoded;
+  try {
+    const decoded = verify(token, JWT_SECRET);
+    return decoded;
+  } catch (error) {
+    return null;
+  }
 };
 
 export { generateToken, verifyToken };
