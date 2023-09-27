@@ -1,8 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import router from "./routes";
-import { connection } from "./database/config";
+import router from "./routes/index.routes";
+import { connection } from "./config/mysql";
 
 const PORT = process.env.PORT || 3001;
 const app = express();

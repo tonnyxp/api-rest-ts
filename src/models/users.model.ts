@@ -1,18 +1,19 @@
-import {
-  Model,
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-} from "sequelize";
-import { sequelize } from "../database/config";
-import { User } from "../interfaces/users.interface";
+import { Model, DataTypes } from "sequelize";
+import { sequelize } from "../config/mysql";
 
-interface UserModel
-  extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>>,
-    User {}
+class User extends Model {
+  public id!: string;
+  public name!: string;
+  public email!: string;
+  public password!: string;
+  public verified!: boolean;
+  public role!: "admin" | "user";
+  public active!: boolean;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
 
-const UserModel = sequelize.define<UserModel>(
-  "users",
+User.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -46,8 +47,10 @@ const UserModel = sequelize.define<UserModel>(
     },
   },
   {
+    sequelize,
+    tableName: "users",
     timestamps: true,
   }
 );
 
-export default UserModel;
+export default User;

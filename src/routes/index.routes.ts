@@ -9,7 +9,7 @@ const removeExtension = (fileName: string) => fileName.split(".").shift();
 readdirSync(PATH_ROUTER).filter((file) => {
   const name = removeExtension(file);
   if (name !== "index") {
-    import(`./${name}`).then((module) => {
+    import(`./${name}.routes`).then((module) => {
       router.use(`/${name}`, module.default);
       console.log(`Cargando ruta ${name}`);
     });
