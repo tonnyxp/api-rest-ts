@@ -9,7 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string;
 const generateToken = (payload: any) => {
   const token = sign(
     {
-      id: payload.id,
+      id: payload.uuid,
       role: payload.role,
     },
     JWT_SECRET,

@@ -2,7 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../config/mysql";
 
 class User extends Model {
-  public id!: string;
+  public uuid!: string;
   public name!: string;
   public email!: string;
   public password!: string;
@@ -15,7 +15,7 @@ class User extends Model {
 
 User.init(
   {
-    id: {
+    uuid: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
