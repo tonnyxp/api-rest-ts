@@ -1,12 +1,17 @@
 import User from "../models/users.model";
 import { UserRepository } from "../repositories/users.repository";
+import {
+  PASSWORD_INCORRECT,
+  USER_EXISTS,
+  USER_NOT_EXISTS,
+} from "../constants/auth";
 import { encrypt, verified } from "../utils/bcrypt.handle";
 import { generateToken } from "../utils/jwt.handle";
 
 export class AuthRepository {
-  static async authRegister({ name, email, password }: User) {
+  static async registerUser({ name, email, password }: User) {
     const checkIt = await UserRepository.findOne({ email });
-    if (checkIt) return "USER_EXISTS";
+    if (checkIt) return USER_EXISTS;
 
     const passwordHash = await encrypt(password);
     const user = await UserRepository.create({
@@ -18,12 +23,12 @@ export class AuthRepository {
     return user;
   }
 
-  static async authLogin({ email, password }: User) {
+  static async loginUser({ email, password }: User) {
     const user = await UserRepository.findOne({ email });
-    if (!user) return "USER_NOT_EXISTS";
+    if (!user) return USER_NOT_EXISTS;
 
     const checkPassword = await verified(password, user.password);
-    if (!checkPassword) return "PASSWORD_INCORRECT";
+    if (!checkPassword) return PASSWORD_INCORRECT;
 
     const token = generateToken(user);
     const data = {
