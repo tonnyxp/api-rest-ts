@@ -1,13 +1,13 @@
 import "dotenv/config";
 import express from "express";
-import cors from "cors";
 import router from "./routes/index.routes";
 import { connection } from "./config/mysql";
+import { corsMiddleware } from "./middlewares/cors";
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-app.use(cors());
+app.use(corsMiddleware());
 app.use(express.json());
 app.disable("x-powered-by");
 app.use("/api", router);
