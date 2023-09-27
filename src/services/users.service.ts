@@ -4,7 +4,7 @@ import { UserRepository } from "../repositories/users.repository";
 export class UserService {
   static async getUsers(): Promise<User[]> {
     try {
-      const users = await UserRepository.getAll();
+      const users = await UserRepository.findAll();
       return users;
     } catch (error) {
       console.error(error);
@@ -14,7 +14,7 @@ export class UserService {
 
   static async getUser(id: string): Promise<User | null> {
     try {
-      const user = await UserRepository.getById(id);
+      const user = await UserRepository.findById(id);
       return user;
     } catch (error) {
       console.error(error);

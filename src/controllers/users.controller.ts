@@ -3,7 +3,7 @@ import { UserService } from "../services/users.service";
 import { handleErrorResponse, handleHttpError } from "../utils/error.handle";
 
 export class UserController {
-  static async getItems(req: Request, res: Response) {
+  static async findAll(req: Request, res: Response) {
     try {
       const data = await UserService.getUsers();
       res.status(200).send({ data });
@@ -12,7 +12,7 @@ export class UserController {
     }
   }
 
-  static async getItem({ params }: Request, res: Response) {
+  static async findOne({ params }: Request, res: Response) {
     try {
       const { id } = params;
       const data = await UserService.getUser(id);
@@ -24,7 +24,7 @@ export class UserController {
     }
   }
 
-  static async updateItem({ params, body }: Request, res: Response) {
+  static async update({ params, body }: Request, res: Response) {
     try {
       const { id } = params;
       const data = await UserService.updateUser(id, body);
@@ -36,7 +36,7 @@ export class UserController {
     }
   }
 
-  static async deleteItem({ params }: Request, res: Response) {
+  static async remove({ params }: Request, res: Response) {
     try {
       const { id } = params;
       const data = await UserService.deleteUser(id);

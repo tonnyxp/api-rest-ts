@@ -9,10 +9,10 @@ const router = Router();
  */
 router.use(checkJwt);
 
-router.get("/", UserController.getItems);
+router.get("/", UserController.findAll);
 
-router.get("/:id", UserController.getItem);
-router.put("/:id", validateUser, UserController.updateItem);
-router.delete("/:id", UserController.deleteItem);
+router.get("/:id", UserController.findOne);
+router.put("/:id", validateUser, UserController.update);
+router.delete("/:id", UserController.remove);
 
 export default router;

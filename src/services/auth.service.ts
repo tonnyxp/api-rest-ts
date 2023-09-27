@@ -5,7 +5,7 @@ import { generateToken } from "../utils/jwt.handle";
 
 export class AuthRepository {
   static async authRegister({ name, email, password }: User) {
-    const checkIt = await UserRepository.getByEmail({ email });
+    const checkIt = await UserRepository.findOne({ email });
     if (checkIt) return "USER_EXISTS";
 
     const passwordHash = await encrypt(password);
@@ -19,7 +19,7 @@ export class AuthRepository {
   }
 
   static async authLogin({ email, password }: User) {
-    const user = await UserRepository.getByEmail({ email });
+    const user = await UserRepository.findOne({ email });
     if (!user) return "USER_NOT_EXISTS";
 
     const checkPassword = await verified(password, user.password);

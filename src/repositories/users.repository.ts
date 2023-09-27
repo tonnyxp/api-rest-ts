@@ -11,7 +11,7 @@ export class UserRepository {
     }
   }
 
-  static async getById(id: string): Promise<User | null> {
+  static async findById(id: string): Promise<User | null> {
     try {
       const user = await User.findByPk(id);
       return user;
@@ -21,7 +21,7 @@ export class UserRepository {
     }
   }
 
-  static async getAll(): Promise<User[]> {
+  static async findAll(): Promise<User[]> {
     try {
       const users = await User.findAll();
       return users;
@@ -60,9 +60,9 @@ export class UserRepository {
     }
   }
 
-  static async getByEmail(email: any): Promise<User | null> {
+  static async findOne(value: any): Promise<User | null> {
     try {
-      const user = await User.findOne({ where: email });
+      const user = await User.findOne({ where: value });
       return user;
     } catch (error) {
       console.error(error);
