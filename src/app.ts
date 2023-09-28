@@ -9,6 +9,7 @@ const app = express();
 
 app.use(corsMiddleware());
 app.use(express.json());
+app.use(express.static("storage"));
 app.disable("x-powered-by");
 app.use("/api", router);
 

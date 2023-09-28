@@ -1,5 +1,6 @@
 import { sign, verify } from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET as string;
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN as string;
 
 /**
  * Generate token with payload
@@ -14,7 +15,7 @@ const generateToken = (payload: any) => {
     },
     JWT_SECRET,
     {
-      expiresIn: "2h",
+      expiresIn: JWT_EXPIRES_IN,
     }
   );
   return token;
