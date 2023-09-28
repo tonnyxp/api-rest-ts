@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AuthRepository } from "../services/auth.service";
+import { AuthService } from "../services/auth.service";
 import {
   PASSWORD_INCORRECT,
   USER_EXISTS,
@@ -10,7 +10,7 @@ import { handleErrorResponse, handleHttpError } from "../utils/error.handle";
 export class AuthController {
   static async register({ body }: Request, res: Response) {
     try {
-      const data = await AuthRepository.registerUser(body);
+      const data = await AuthService.registerUser(body);
 
       if (data === USER_EXISTS) {
         return handleErrorResponse(res, "El usuario ya existe", 500);
@@ -24,7 +24,7 @@ export class AuthController {
 
   static async login({ body }: Request, res: Response) {
     try {
-      const data = await AuthRepository.loginUser(body);
+      const data = await AuthService.loginUser(body);
 
       if (data === USER_NOT_EXISTS) {
         return handleErrorResponse(res, "Usuario no encontrado", 401);

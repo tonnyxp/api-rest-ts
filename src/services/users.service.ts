@@ -1,10 +1,9 @@
 import User from "../models/users.model";
-import { UserRepository } from "../repositories/users.repository";
 
 export class UserService {
   static async getUsers(): Promise<User[]> {
     try {
-      const users = await UserRepository.findAll();
+      const users = await User.findAll();
       return users;
     } catch (error) {
       console.error(error);
@@ -14,7 +13,7 @@ export class UserService {
 
   static async getUser(id: string): Promise<User | null> {
     try {
-      const user = await UserRepository.findById(id);
+      const user = await User.findByPk(id);
       return user;
     } catch (error) {
       console.error(error);
@@ -27,7 +26,10 @@ export class UserService {
     updatedUser: Partial<User>
   ): Promise<User | null> {
     try {
-      const user = await UserRepository.update(id, updatedUser);
+      const user = await User.findByPk(id);
+      if (!user) return null;
+
+      await user.update(updatedUser);
       return user;
     } catch (error) {
       console.error(error);
@@ -37,8 +39,11 @@ export class UserService {
 
   static async deleteUser(id: string): Promise<boolean> {
     try {
-      const success = await UserRepository.delete(id);
-      return success;
+      const user = await User.findByPk(id);
+      if (!user) return false;
+
+      await user.destroy();
+      return true;
     } catch (error) {
       console.error(error);
       return false;

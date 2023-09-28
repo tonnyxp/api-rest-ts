@@ -1,5 +1,4 @@
 import User from "../models/users.model";
-import { UserRepository } from "../repositories/users.repository";
 import {
   PASSWORD_INCORRECT,
   USER_EXISTS,
@@ -8,13 +7,13 @@ import {
 import { encrypt, verified } from "../utils/bcrypt.handle";
 import { generateToken } from "../utils/jwt.handle";
 
-export class AuthRepository {
+export class AuthService {
   static async registerUser({ name, email, password }: User) {
-    const checkIt = await UserRepository.findOne({ email });
+    const checkIt = await User.findOne({ where: { email } });
     if (checkIt) return USER_EXISTS;
 
     const passwordHash = await encrypt(password);
-    const user = await UserRepository.create({
+    const user = await User.create({
       name,
       email,
       password: passwordHash,
@@ -24,7 +23,7 @@ export class AuthRepository {
   }
 
   static async loginUser({ email, password }: User) {
-    const user = await UserRepository.findOne({ email });
+    const user = await User.findOne({ where: { email } });
     if (!user) return USER_NOT_EXISTS;
 
     const checkPassword = await verified(password, user.password);
