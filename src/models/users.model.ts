@@ -8,7 +8,7 @@ class User extends Model {
   public password!: string;
   public verified!: boolean;
   public role!: "admin" | "user";
-  public active!: boolean;
+  public status!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -41,7 +41,7 @@ User.init(
       type: DataTypes.ENUM("admin", "user"),
       defaultValue: "user",
     },
-    active: {
+    status: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
