@@ -8,6 +8,7 @@ class Staff extends Model {
   public email!: string;
   public phone!: string;
   public birthdate!: Date;
+  public gender!: string;
   public active!: boolean;
   public storeId!: number;
   public readonly createdAt!: Date;
@@ -41,6 +42,9 @@ Staff.init(
     },
     birthdate: {
       type: DataTypes.DATEONLY,
+    },
+    gender: {
+      type: DataTypes.ENUM("male", "female"),
     },
     active: {
       type: DataTypes.BOOLEAN,

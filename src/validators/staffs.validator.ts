@@ -8,6 +8,7 @@ const validateStaff = [
   check("email", "El email es requerido").isEmail(),
   check("phone", "El telefono es requerido").notEmpty(),
   check("birthdate", "La fecha de nacimiento es requerida").notEmpty(),
+  check("gender", "El genero es requerido").notEmpty(),
   check("active", "El estatus es requerido").notEmpty(),
   check("storeId", "El storeId es requerido").notEmpty(),
   (req: Request, res: Response, next: NextFunction) => {
