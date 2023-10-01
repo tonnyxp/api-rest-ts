@@ -1,4 +1,5 @@
 import User from "../models/users.model";
+import Staff from "../models/staffs.model";
 import {
   PASSWORD_INCORRECT,
   USER_EXISTS,
@@ -17,6 +18,13 @@ export class AuthService {
       name,
       email,
       password: passwordHash,
+    });
+
+    // TODO: Agregar el usuario al staff
+    await Staff.create({
+      userId: user.uuid,
+      firstName: name,
+      email,
     });
 
     return user;
