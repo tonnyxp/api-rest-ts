@@ -1,3 +1,4 @@
+import { sequelize } from "../config/mysql";
 import User from "../models/users.model";
 import Staff from "../models/staffs.model";
 import {
@@ -10,24 +11,38 @@ import { generateToken } from "../utils/jwt.handle";
 
 export class AuthService {
   static async registerUser({ name, email, password }: User) {
-    const checkIt = await User.findOne({ where: { email } });
-    if (checkIt) return USER_EXISTS;
+    const transaction = await sequelize.transaction();
 
-    const passwordHash = await encrypt(password);
-    const user = await User.create({
-      name,
-      email,
-      password: passwordHash,
-    });
+    try {
+      const checkIt = await User.findOne({ where: { email } });
+      if (checkIt) return USER_EXISTS;
 
-    // TODO: Agregar el usuario al staff
-    await Staff.create({
-      userId: user.uuid,
-      firstName: name,
-      email,
-    });
+      const passwordHash = await encrypt(password);
+      const user = await User.create(
+        {
+          name,
+          email,
+          password: passwordHash,
+        },
+        { transaction }
+      );
 
-    return user;
+      // TODO: Agregar el usuario al staff
+      await Staff.create(
+        {
+          userId: user.uuid,
+          firstName: name,
+          email,
+        },
+        { transaction }
+      );
+
+      await transaction.commit();
+      return user;
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
   }
 
   static async loginUser({ email, password }: User) {

@@ -48,6 +48,7 @@ Staff.init(
     },
     active: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: true,
     },
     storeId: {
