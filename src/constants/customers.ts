@@ -1,0 +1,3 @@
+export const CUSTOMER_TYPE_CUSTOMER = 1;
+export const CUSTOMER_TYPE_CUSTOMER_SUPPLIER = 2;
+export const CUSTOMER_TYPE_SUPPLIER = 3;
