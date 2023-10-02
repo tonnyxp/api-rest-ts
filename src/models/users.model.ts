@@ -35,14 +35,17 @@ User.init(
     },
     verified: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: false,
     },
     role: {
       type: DataTypes.ENUM("admin", "user"),
+      allowNull: false,
       defaultValue: "user",
     },
     status: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: true,
     },
   },
