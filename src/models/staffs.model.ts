@@ -20,10 +20,6 @@ Staff.init(
     userId: {
       type: DataTypes.UUID,
       primaryKey: true,
-      references: {
-        model: "users",
-        key: "uuid",
-      },
     },
     firstName: {
       type: DataTypes.STRING(50),

@@ -42,15 +42,15 @@ Order.init(
       comment: "1: Pending, 2: Processing, 3: Rejected, 4: Completed",
     },
     orderDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     requiredDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     shippedDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
     },
     note: {
       type: DataTypes.TEXT,

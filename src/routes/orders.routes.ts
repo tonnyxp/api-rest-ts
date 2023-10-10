@@ -8,6 +8,9 @@ const router = Router();
  */
 router.use(checkJwt);
 
+router.get("/", OrderController.findAll);
 router.post("/", OrderController.create);
+
+router.get("/:id", OrderController.findOne);
 
 export default router;
