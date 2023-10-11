@@ -79,4 +79,10 @@ Order.init(
   }
 );
 
+Order.hasOne(Customers, { as: "customer", foreignKey: "customerId" });
+Order.hasOne(Store, { as: "store", foreignKey: "storeId" });
+Order.hasOne(Staff, { as: "user", foreignKey: "userId", sourceKey: "userId" });
+
+Order.hasMany(OrderItem, { as: "items", foreignKey: "orderId" });
+
 export default Order;

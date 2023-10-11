@@ -1,7 +1,6 @@
 import { sequelize } from "../config/mysql";
 import Order from "../models/orders.model";
 import OrderItem from "../models/order-items.model";
-import Store from "../models/stores.model";
 
 export class OrderService {
   static async createOrder(order: Partial<Order>) {
@@ -35,9 +34,7 @@ export class OrderService {
 
   static async getOrder(id: string): Promise<Order | null> {
     try {
-      const order = await Order.findByPk(id, {
-        include: ["items", "store"],
-      });
+      const order = await Order.findByPk(id);
       return order;
     } catch (error) {
       console.log(error);

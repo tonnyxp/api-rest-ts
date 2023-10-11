@@ -53,7 +53,7 @@ export class OrderController {
     }
   }
 
-  static async delete(req: Request, res: Response) {
+  static async deleteItem(req: Request, res: Response) {
     try {
       const { id } = req.params;
       const data = await OrderService.deleteOrderItem(id);

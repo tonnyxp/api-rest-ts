@@ -12,5 +12,8 @@ router.get("/", OrderController.findAll);
 router.post("/", OrderController.create);
 
 router.get("/:id", OrderController.findOne);
+router.patch("/:id", OrderController.update);
+
+router.delete("/item/:id", OrderController.deleteItem);
 
 export default router;
