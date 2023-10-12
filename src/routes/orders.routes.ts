@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { checkJwt } from "../middlewares/session";
 import { OrderController } from "../controllers/orders.controller";
+import { validateOrder } from "../validators/orders.validator";
 
 const router = Router();
 /**
@@ -9,7 +10,7 @@ const router = Router();
 router.use(checkJwt);
 
 router.get("/", OrderController.findAll);
-router.post("/", OrderController.create);
+router.post("/", validateOrder, OrderController.create);
 
 router.get("/:id", OrderController.findOne);
 router.patch("/:id", OrderController.update);
