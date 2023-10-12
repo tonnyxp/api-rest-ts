@@ -1,6 +1,8 @@
 import { sequelize } from "../config/mysql";
 import Order from "../models/orders.model";
 import OrderItem from "../models/order-items.model";
+import { ORDER_STATUS } from "../constants/order";
+import Stock from "../models/stocks.model";
 
 export class OrderService {
   static async createOrder(order: Partial<Order>) {
@@ -50,6 +52,7 @@ export class OrderService {
       const order = await Order.findByPk(id);
       if (!order) return null;
 
+      await updateStock(order);
       await order.update(updatedOrder);
       return order;
     } catch (error) {
@@ -71,3 +74,21 @@ export class OrderService {
     }
   }
 }
+
+const updateStock = async (order: Order) => {
+  if (order.status === ORDER_STATUS.COMPLETED) {
+    const items = await OrderItem.findAll({
+      where: { orderId: order.orderId },
+    });
+
+    items.map(async (item) => {
+      const stock = await Stock.findOne({
+        where: { productId: item.productId, storeId: order.storeId },
+      });
+
+      if (stock) {
+        await stock.update({ quantity: stock.quantity + item.quantity });
+      }
+    });
+  }
+};

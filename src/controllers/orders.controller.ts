@@ -41,10 +41,14 @@ export class OrderController {
     }
   }
 
-  static async update(req: Request, res: Response) {
+  static async update({ params, body, user }: RequestExt, res: Response) {
     try {
-      const { id } = req.params;
-      const data = await OrderService.updateOrder(id, req.body);
+      const { id } = params;
+      const data = await OrderService.updateOrder(id, {
+        ...body,
+        userId: user?.id,
+      });
+
       if (!data) return handleErrorResponse(res, "Orden no encontrada", 404);
 
       return res.status(200).send({ data });

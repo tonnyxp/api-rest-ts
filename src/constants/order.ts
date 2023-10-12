@@ -1,0 +1,6 @@
+export const ORDER_STATUS = {
+  PENDING: 1,
+  PROCESSING: 2,
+  REJECTED: 3,
+  COMPLETED: 4,
+};
