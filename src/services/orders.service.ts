@@ -5,7 +5,7 @@ import { ORDER_STATUS } from "../constants/order";
 import Stock from "../models/stocks.model";
 
 export class OrderService {
-  static async createOrder(order: Partial<Order>) {
+  static async createOrder(order: Partial<Order>): Promise<Order | null> {
     const transaction = await sequelize.transaction();
 
     try {
@@ -52,8 +52,8 @@ export class OrderService {
       const order = await Order.findByPk(id);
       if (!order) return null;
 
-      await updateStock(order);
       await order.update(updatedOrder);
+      await updateStock(order);
       return order;
     } catch (error) {
       console.log(error);
