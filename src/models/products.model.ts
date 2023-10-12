@@ -13,6 +13,7 @@ class Product extends Model {
   public active!: boolean;
   public categoryId!: number;
   public brandId!: number;
+  public quantity!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }

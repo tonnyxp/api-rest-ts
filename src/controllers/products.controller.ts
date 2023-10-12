@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { ProductService } from "../services/products.service";
 import { handleHttpError, handleErrorResponse } from "../utils/error.handle";
+import { RequestExt } from "../interfaces/request-ext";
 
 export class ProductController {
-  static async create({ body }: Request, res: Response) {
+  static async create({ body, user }: RequestExt, res: Response) {
     try {
-      const data = await ProductService.createProduct(body);
+      const data = await ProductService.createProduct(body, user?.id);
       if (!data)
         return handleErrorResponse(res, "No se pudo crear el producto", 500);
 

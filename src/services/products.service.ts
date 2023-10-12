@@ -1,14 +1,33 @@
+import { sequelize } from "../config/mysql";
 import Product from "../models/products.model";
+import Staff from "../models/staffs.model";
+import Stock from "../models/stocks.model";
 
 export class ProductService {
   static async createProduct(
-    product: Partial<Product>
+    product: Partial<Product>,
+    userId: string
   ): Promise<Product | null> {
+    const transaction = await sequelize.transaction();
+
     try {
-      const newProduct = await Product.create(product);
+      const newProduct = await Product.create(product, { transaction });
+
+      const user = await Staff.findByPk(userId);
+      await Stock.create(
+        {
+          productId: newProduct.productId,
+          storeId: user?.storeId,
+          quantity: product.quantity,
+        },
+        { transaction }
+      );
+
+      await transaction.commit();
       return newProduct;
     } catch (error) {
       console.error(error);
+      await transaction.rollback();
       return null;
     }
   }
