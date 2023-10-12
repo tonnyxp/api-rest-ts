@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../config/mysql";
 
-export class Customers extends Model {
+export class Customer extends Model {
   public customerId!: number;
   public code!: string;
   public name!: string;
@@ -24,7 +24,7 @@ export class Customers extends Model {
   public readonly updatedAt!: Date;
 }
 
-Customers.init(
+Customer.init(
   {
     customerId: {
       type: DataTypes.INTEGER,
@@ -104,4 +104,4 @@ Customers.init(
   }
 );
 
-export default Customers;
+export default Customer;

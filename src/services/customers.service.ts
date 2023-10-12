@@ -1,11 +1,11 @@
-import Customers from "../models/customers.model";
+import Customer from "../models/customers.model";
 
 export class CustomerService {
   static async createCustomer(
-    customer: Partial<Customers>
-  ): Promise<Customers | null> {
+    customer: Partial<Customer>
+  ): Promise<Customer | null> {
     try {
-      const newCustomer = await Customers.create(customer);
+      const newCustomer = await Customer.create(customer);
       return newCustomer;
     } catch (error) {
       console.error(error);
@@ -13,9 +13,9 @@ export class CustomerService {
     }
   }
 
-  static async getCustomers(): Promise<Customers[]> {
+  static async getCustomers(): Promise<Customer[]> {
     try {
-      const customers = await Customers.findAll();
+      const customers = await Customer.findAll();
       return customers;
     } catch (error) {
       console.error(error);
@@ -23,9 +23,9 @@ export class CustomerService {
     }
   }
 
-  static async getCustomer(id: string): Promise<Customers | null> {
+  static async getCustomer(id: string): Promise<Customer | null> {
     try {
-      const customer = await Customers.findByPk(id);
+      const customer = await Customer.findByPk(id);
       return customer;
     } catch (error) {
       console.error(error);
@@ -35,10 +35,10 @@ export class CustomerService {
 
   static async updateCustomer(
     id: string,
-    updatedCustomer: Partial<Customers>
-  ): Promise<Customers | null> {
+    updatedCustomer: Partial<Customer>
+  ): Promise<Customer | null> {
     try {
-      const customer = await Customers.findByPk(id);
+      const customer = await Customer.findByPk(id);
       if (!customer) return null;
 
       await customer.update(updatedCustomer);

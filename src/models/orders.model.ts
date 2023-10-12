@@ -1,7 +1,7 @@
 import { sequelize } from "../config/mysql";
 import { Model, DataTypes } from "sequelize";
 
-import Customers from "./customers.model";
+import Customer from "./customers.model";
 import Store from "./stores.model";
 import Staff from "./staffs.model";
 import OrderItem from "./order-items.model";
@@ -31,7 +31,7 @@ Order.init(
     customerId: {
       type: DataTypes.INTEGER,
       references: {
-        model: Customers,
+        model: Customer,
         key: "customerId",
       },
     },
@@ -79,7 +79,7 @@ Order.init(
   }
 );
 
-Order.hasOne(Customers, { as: "customer", foreignKey: "customerId" });
+Order.hasOne(Customer, { as: "customer", foreignKey: "customerId" });
 Order.hasOne(Store, { as: "store", foreignKey: "storeId" });
 Order.hasOne(Staff, { as: "user", foreignKey: "userId", sourceKey: "userId" });
 

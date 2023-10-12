@@ -1,3 +1,5 @@
-export const CUSTOMER_TYPE_CUSTOMER = 1;
-export const CUSTOMER_TYPE_CUSTOMER_SUPPLIER = 2;
-export const CUSTOMER_TYPE_SUPPLIER = 3;
+export const CUSTOMER_TYPE = {
+  CUSTOMER: 1,
+  CUSTOMER_SUPPLIER: 2,
+  SUPPLIER: 3,
+};
