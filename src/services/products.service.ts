@@ -13,15 +13,17 @@ export class ProductService {
     try {
       const newProduct = await Product.create(product, { transaction });
 
-      const user = await Staff.findByPk(userId);
-      await Stock.create(
-        {
-          productId: newProduct.productId,
-          storeId: user?.storeId,
-          quantity: product.quantity,
-        },
-        { transaction }
-      );
+      if (newProduct.stocktaking) {
+        const user = await Staff.findByPk(userId);
+        await Stock.create(
+          {
+            productId: newProduct.productId,
+            storeId: user?.storeId,
+            quantity: product.quantity,
+          },
+          { transaction }
+        );
+      }
 
       await transaction.commit();
       return newProduct;

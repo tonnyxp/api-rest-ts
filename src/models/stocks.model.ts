@@ -60,7 +60,16 @@ Stock.init(
   }
 );
 
-Stock.belongsTo(Product, { foreignKey: "productId" });
-Stock.belongsTo(Store, { foreignKey: "storeId" });
+Stock.belongsTo(Product, {
+  foreignKey: "productId",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+Stock.belongsTo(Store, {
+  foreignKey: "storeId",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
 
 export default Stock;
