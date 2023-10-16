@@ -3,6 +3,7 @@ import Order from "../models/orders.model";
 import OrderItem from "../models/order-items.model";
 import { ORDER_STATUS } from "../constants/order";
 import Stock from "../models/stocks.model";
+import Product from "../models/products.model";
 
 export class OrderService {
   static async createOrder(order: Partial<Order>): Promise<Order | null> {
@@ -11,8 +12,16 @@ export class OrderService {
     try {
       const newOrder = await Order.create(order, { transaction });
 
-      order.items?.map(async (item) => {
-        await OrderItem.create({ ...item, orderId: newOrder.orderId });
+      order.items?.map(async (item: OrderItem) => {
+        item.orderId = newOrder.orderId;
+        const product = await Product.findByPk(item.productId);
+
+        if (product) {
+          item.purchasePrice = product.cost;
+          item.salePrice = product.price;
+        }
+
+        await OrderItem.create({ ...item });
       });
 
       await transaction.commit();

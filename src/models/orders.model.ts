@@ -17,6 +17,7 @@ export class Order extends Model {
   public storeId!: number;
   public staffId!: number;
   public items!: OrderItem[];
+  public total!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -51,6 +52,12 @@ Order.init(
     },
     shippedDate: {
       type: DataTypes.DATEONLY,
+    },
+    total: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return this.items?.reduce((total, item) => total + item.total, 0);
+      },
     },
     note: {
       type: DataTypes.TEXT,

@@ -9,8 +9,11 @@ export class OrderItem extends Model {
   public itemId!: number;
   public productId!: number;
   public quantity!: number;
-  public price!: number;
+  public received!: number;
+  public purchasePrice!: number;
+  public salePrice!: number;
   public discount!: number;
+  public total!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -41,15 +44,34 @@ OrderItem.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    price: {
-      type: DataTypes.DECIMAL,
+    received: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    purchasePrice: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      defaultValue: 0,
+    },
+    salePrice: {
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       defaultValue: 0,
     },
     discount: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       defaultValue: 0,
+    },
+    total: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return (
+          Number(this.getDataValue("quantity")) *
+          Number(this.getDataValue("purchasePrice"))
+        );
+      },
     },
   },
   {
